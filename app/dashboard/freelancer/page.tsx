@@ -11,12 +11,12 @@ export default async function DashboardFreelancerPage() {
     .from("freelancers").select("*, perfil:perfiles(*)").eq("id", user!.id).single();
   if (!freelancer) redirect("/registro/freelancer");
 
-  const estadoTexto = { pendiente: "En revisión", aprobado: "Verificado", rechazado: "No aprobado" }[freelancer.estado_verificado];
-  const estadoEstilo = {
+  const estadoTexto = ({ pendiente: "En revisión", aprobado: "Verificado", rechazado: "No aprobado" } as Record<string, string>)[freelancer.estado_verificado];
+  const estadoEstilo = ({
     pendiente: "bg-warn-50 text-warn-600",
     aprobado: "bg-success-50 text-success-600",
     rechazado: "bg-red-50 text-red-600",
-  }[freelancer.estado_verificado];
+  } as Record<string, string>)[freelancer.estado_verificado];
 
   return (
     <>
@@ -43,7 +43,7 @@ export default async function DashboardFreelancerPage() {
             <dl className="grid grid-cols-2 gap-5 text-sm">
               <div>
                 <dt className="text-slate-400 text-xs mb-1">Categoría</dt>
-                <dd className="text-slate-900 font-medium">{CATEGORIA_LABELS[freelancer.categoria]}</dd>
+                <dd className="text-slate-900 font-medium">{CATEGORIA_LABELS[freelancer.categoria as keyof typeof CATEGORIA_LABELS]}</dd>
               </div>
               <div>
                 <dt className="text-slate-400 text-xs mb-1">Tarifa por hora</dt>
