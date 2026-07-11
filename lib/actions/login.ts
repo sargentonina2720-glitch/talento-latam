@@ -2,7 +2,11 @@
 import { crearClienteServidor } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 
-export async function iniciarSesion(_estadoPrevio: any, formData: FormData) {
+export interface EstadoLogin {
+  error?: string;
+}
+
+export async function iniciarSesion(_estadoPrevio: EstadoLogin, formData: FormData): Promise<EstadoLogin> {
   const supabase = crearClienteServidor();
   const email = String(formData.get("email") || "").trim();
   const password = String(formData.get("password") || "");
