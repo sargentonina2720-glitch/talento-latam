@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
+import BotAyuda from "@/components/BotAyuda";
 import { crearClienteServidor } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -44,6 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           userId={user?.id ?? null}
         />
         {children}
+        {tipoUsuario !== "admin" && <BotAyuda />}
       </body>
     </html>
   );
